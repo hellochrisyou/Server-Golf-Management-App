@@ -1,0 +1,35 @@
+package com.server.golf.domain.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Data;
+import lombok.ToString;
+
+@Entity
+@ToString(includeFieldNames=true)
+@Data
+public class Hole {
+
+	private @Id Long id; // will be set when persisting
+	
+	@NotNull
+	@Size(min=3, max=5)
+	private int par;	
+
+	@Column
+	private int strokes;
+	
+	@ManyToMany(mappedBy = "holes")
+	@JsonIgnore
+	private List<Tournament> tournament = new ArrayList<>();
+}

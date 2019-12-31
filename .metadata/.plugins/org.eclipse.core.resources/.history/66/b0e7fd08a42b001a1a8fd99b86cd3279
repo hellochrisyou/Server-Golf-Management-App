@@ -1,0 +1,5 @@
+package com.server.golf.graphQL.service;
+
+public class TournamentService {
+
+}

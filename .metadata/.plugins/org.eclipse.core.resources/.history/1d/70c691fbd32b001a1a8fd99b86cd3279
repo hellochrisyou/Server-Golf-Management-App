@@ -1,0 +1,5 @@
+package com.server.golf.command;
+
+public class CourseForm {
+
+}

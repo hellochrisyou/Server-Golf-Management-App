@@ -1,0 +1,5 @@
+package com.server.golf.config;
+
+public class CustomGraphQLErrorHandler {
+
+}

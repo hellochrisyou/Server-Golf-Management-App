@@ -1,0 +1,53 @@
+package com.server.golf.domain.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name = "tournament")
+public class Tournament {
+
+	private @Id Long id; // will be set when persisting
+	 
+    private String name;
+    private String gameType;    
+    private float fee;
+    private String courseName;
+    private String address;
+    private String city;
+    private String State;
+    private int zipcode;
+    
+    @ManyToMany(cascade = {
+    	    CascadeType.PERSIST,
+    	    CascadeType.MERGE
+    	})
+    	@JoinTable(name = "team_hole",
+    	    joinColumns = @JoinColumn(name = "team_id"),
+    	    inverseJoinColumns = @JoinColumn(name = "hole_id")
+    	)
+    	private List<Player> holes = new ArrayList<>();
+    
+    @ManyToMany(cascade = {
+    	    CascadeType.PERSIST,
+    	    CascadeType.MERGE
+    	})
+    	@JoinTable(name = "team_player",
+    	    joinColumns = @JoinColumn(name = "team_id"),
+    	    inverseJoinColumns = @JoinColumn(name = "player_id")
+    	)
+    	private List<Player> players = new ArrayList<>();
+	
+	    
+}

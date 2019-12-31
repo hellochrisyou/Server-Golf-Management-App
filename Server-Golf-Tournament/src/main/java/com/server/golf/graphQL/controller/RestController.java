@@ -1,0 +1,41 @@
+package com.server.golf.graphQL.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.server.golf.graphQL.service.PlayerService;
+import com.server.golf.graphQL.service.TournamentService;
+import com.server.golf.graphQL.service.serviceImpl.PlayerServiceImpl;
+import com.server.golf.graphQL.service.serviceImpl.TournamentServiceImpl;
+
+import graphql.GraphQL;
+import graphql.schema.GraphQLSchema;
+import io.leangen.graphql.GraphQLSchemaGenerator;
+import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
+
+@CrossOrigin(maxAge = 3600)
+@Controller
+@GraphQLApi
+public class RestController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestController.class);
+   
+    @SuppressWarnings("unused")
+	private final GraphQL graphQL;
+	
+		@Autowired
+	    public RestController(TournamentService tournamentService, PlayerService playerService) 
+	 	{			
+	        //Schema generated from query classes
+			GraphQLSchema schema = new GraphQLSchemaGenerator()
+	                .withBasePackages("com.server.golf")
+	                .withOperationsFromSingleton(tournamentService, TournamentServiceImpl.class)
+	                .withOperationsFromSingleton(playerService, PlayerServiceImpl.class)	        
+	                .generate();
+	        graphQL = GraphQL.newGraphQL(schema).build();
+	        LOGGER.info("Generated GraphQL schema using SPQR");
+	    }	
+}
+

@@ -1,0 +1,121 @@
+schema{
+ query: Query
+ mutation : Mutation
+}
+
+type Query {
+}
+
+type Mutation {
+	registerAcct(test: String): String		
+}
+
+type Account {
+	id: ID!,
+	acctName: String,
+	acctPass: Boolean,
+	leagues: [League],
+	teams: [Team]
+}
+
+type League {
+	id: ID,
+	leagueName: String,
+	count: Int,
+	draftNum: Int,
+	startWk: Int,
+	curWeek: Int,
+	status: String,
+	accounts: [Account],
+	teams: [Team]
+}
+
+type Team {
+	id: ID,
+	tmName: String,
+	draftNum: Int,
+	helmet: String,
+	totalPoints: Float,	
+	account: Account,
+	league: League,
+	players: [Player]
+}
+
+type Player {
+	id: ID,
+	plyrName: String,
+	pos: String,
+	isActive: Boolean,
+	isFlex: Boolean,
+	points: Float,
+	teams: [Team]
+}
+
+type Dto {	
+	acctName: String,	
+	acctPass: String,
+	leagueName: String,
+	myTmName: String,
+	myTmHelmet: String,
+	secTmName: String,	
+    plyr1Name: String, 
+    plyr1Pos : String,
+    plyr2Name : String,
+    plyr2Pos : String,
+    token : String	
+}
+
+input AccountInput {
+	id: ID,
+	acctName: String,
+	acctPass: Boolean,
+	leagues: [LeagueInput],
+	teams: [TeamInput]
+}
+
+input LeagueInput {
+	id: ID,
+	leagueName: String,
+	count: Int,
+	draftNum: Int,
+	startWk: Int,
+	curWeek: Int,
+	status: String,
+	accounts: [AccountInput],
+	teams: [TeamInput]
+}
+
+input TeamInput {
+	id: ID,
+	tmName: String,
+	draftNum: Int,
+	helmet: String,
+	totalPoints: Float,	
+	account: AccountInput,
+	league: LeagueInput,
+	players: [PlayerInput]
+}
+
+input PlayerInput {
+	id: ID,
+	plyrName: String,
+	pos: String,
+	isActive: Boolean,
+	isFlex: Boolean,
+	points: Float,
+	teams: [TeamInput]
+}
+
+input DtoInput {
+	acctName: String,	
+	acctPass: String,
+	leagueName: String,
+	myTmName: String,
+	myTmHelmet: String,
+	secTmName: String,	
+    plyr1Name: String, 
+    plyr1Pos : String,
+    plyr2Name : String,
+    plyr2Pos : String,
+    token : String	
+}

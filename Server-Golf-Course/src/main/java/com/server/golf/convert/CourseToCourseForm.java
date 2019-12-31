@@ -1,0 +1,26 @@
+package com.server.golf.convert;
+
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+import com.server.golf.command.CourseForm;
+import com.server.golf.domain.Course;
+
+@Component
+public class CourseToCourseForm implements Converter<Course, CourseForm> {
+    @Override
+    public CourseForm convert(Course course) {
+    	CourseForm courseForm = new CourseForm();
+    	courseForm.set_id(course.get_id().toHexString());
+    	courseForm.setCity(courseForm.getCity());
+    	courseForm.setDistance(courseForm.getDistance());
+    	courseForm.setEmail(courseForm.getEmail());
+    	courseForm.setManager(courseForm.getManager());
+        courseForm.setName(courseForm.getName());
+        courseForm.setPhoneNum(courseForm.getPhoneNum());
+        courseForm.setRules(courseForm.getRules());
+        courseForm.setState(courseForm.getState());
+        courseForm.setDescription(courseForm.getDescription());
+        return courseForm;
+    }
+}
