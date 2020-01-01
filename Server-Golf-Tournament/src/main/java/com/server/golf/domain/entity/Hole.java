@@ -27,6 +27,9 @@ public class Hole {
 	@Column(unique = true, nullable = false)
 	protected long id;
 	
+	@Size(min=1, max=18)
+	protected int holeNum;
+	
 	@NotNull
 	@Size(min=3, max=5)
 	protected int par;	
